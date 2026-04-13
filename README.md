@@ -10,3 +10,12 @@ This project focuses on developing a data-driven analysis framework based on the
 In particular, energy consumption data collected from FEMS is redefined and linked with production performance to move beyond traditional energy-saving approaches toward productivity-oriented operational strategies. The system supports multidimensional analysis, enabling identification of operational losses and improvement opportunities through KPI codes such as #5100–#5500.
 
 The ultimate goal is to provide a scalable FOM-based analysis environment that allows flexible data preprocessing (Assist) and structured analytical processes (Process), supporting decision-making and continuous improvement in smart manufacturing systems.
+
+---
+
+```
+프로젝트 = 데이터 공간 + 실행 컨텍스트
+```
+단순히 폴더만 나누면 부족하고, **폴더 + DB + 메타정보 + 세션 컨텍스트**까지 함께 설계해야 안정적으로 동작한다.
+
+---
