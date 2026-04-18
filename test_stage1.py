@@ -6,8 +6,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 from parser import parse_csv_stage1
 
-FILE_PATH   = r"D:\OpenFOMs\projects\Project_A\raw\manual qpr_2020.csv"
-CONFIG_PATH = r"D:\OpenFOMs\projects\Project_A\config.json"
+FILE_PATH   = r".\projects\Project_A\raw\manual qpr_2020.csv"
+CONFIG_PATH = r".\projects\Project_A\config.json"
 
 with open(CONFIG_PATH, encoding="utf-8") as f:
     CONFIG = json.load(f)
