@@ -1,0 +1,20 @@
+{
+    "delimiter":             ",",
+    "date_col":              "일자",
+    "shift_col":             "Shift",
+    "process_hierarchy":     ["차종", "설비", "제품"],
+    "machine_col":           "설비",
+    "product_col":           "제품",
+    "worker_col":            "작업자",
+    "plan_qty_col":          "계획",
+    "actual_qty_col":        "실적",
+    "work_time_col":         "작업시간",
+    "efficiency_col":        "효율",
+    "cycle_time_col":        "C/T",
+    "downtime_col":          "비가동",
+    "downtime_time_col":     "비가동시간",
+    "nonconformity_col":     "부적합",
+    "nonconformity_qty_col": "부적합수량",
+    "defect_col":            "불량",
+    "defect_qty_col":        "불량수량"
+}
