@@ -3,19 +3,125 @@
 </div>
 
 # OpenFOMs
-본 프로젝트는 제조현장에서 생성되는 생산 데이터를 기반으로 Factory Operation Management(FOM) 시스템 중심의 데이터 기반 분석 프레임워크를 구축하는 것을 목적으로 한다. 이를 위해 현장 데이터를 표준화된 FOM 파일셋으로 재구성하고, 데이터 정합성을 확보하며, 4M(Man, Machine, Material, Method)과 Objective Data를 결합한 확장 가능한 분석 구조를 설계한다. 또한 KPI 중심의 다차원 분석을 통해 공정, 설비, 작업자 단위의 성과를 정량적으로 진단하고 운영 손실 및 개선 기회를 도출한다. 더불어 FOM 철학을 기반으로 Vibe Coding과 FOM-AI의 핵심 요소를 구현하여, 데이터 전처리(Assist)와 분석(Process)이 통합된 지능형 분석 환경을 구축한다.
-
-This project focuses on developing a data-driven analysis framework based on the Factory Operation Management (FOM) system by integrating production data and energy data from manufacturing environments. The study aims to restructure raw shop-floor data into a standardized FOM file set, ensure data integrity, and establish KPI-based analytical models aligned with 4M1E (Man, Machine, Material, Method, Energy).
-
-In particular, energy consumption data collected from FEMS is redefined and linked with production performance to move beyond traditional energy-saving approaches toward productivity-oriented operational strategies. The system supports multidimensional analysis, enabling identification of operational losses and improvement opportunities through KPI codes such as #5100–#5500.
-
-The ultimate goal is to provide a scalable FOM-based analysis environment that allows flexible data preprocessing (Assist) and structured analytical processes (Process), supporting decision-making and continuous improvement in smart manufacturing systems.
 
 ---
 
-```
-프로젝트 = 데이터 공간 + 실행 컨텍스트
-```
-단순히 폴더만 나누면 부족하고, **폴더 + DB + 메타정보 + 세션 컨텍스트**까지 함께 설계해야 안정적으로 동작한다.
+## FOM 철학
+
+FOM(Factory Operation Management)은 단순한 생산관리 시스템이 아니라, 현장의 데이터를 중심으로 모든 의사결정을 수행하는 **사고 체계(Thinking Framework)**다.
+
+핵심은 **"현장을 수치로 해석하고, 개선을 구조화한다"** 는 데 있다.
+
+FOM은 제조현장에 한정되지 않고, 요양원·호텔·물류·시설관리 등 운영 데이터가 존재하는 모든 현장에 적용 가능한 **범용 운영관리 분석 체계**다.
+
+### 세 가지 철학 축
+
+**데이터 중심 사고 (Data-First Thinking)**  
+현장에서 일어나는 모든 현상을 4M 기반으로 정형화하고, 직관과 경험이 아닌 수치로 해석한다. 수치화란 단순히 숫자를 모으는 것이 아니라, 4M 요소 간의 인과 구조를 객관적으로 드러내는 것이다.
+
+**구조적 개선 (Structured Improvement)**  
+발생한 문제를 일회성으로 처리하는 것이 아니라, 어떤 4M 요소가 어떤 손실을 만들어내는지 재현 가능한 분석 구조로 만든다. 이를 통해 개선이 지속적으로 작동하는 진단 체계가 된다.
+
+**현장 주체성 (Field Ownership)**  
+FOM이 제공하는 수치를 현장 담당자가 직접 해석하고 판단하며 개선하는 주체가 된다. FOM은 분석 결과를 일방적으로 전달하는 시스템이 아니라, 현장 담당자가 스스로 데이터 기반 의사결정을 실행할 수 있는 환경을 제공하는 체계다.
+
+### FOM-PBL
+
+FOM-PBL(Project/Problem Based Learning)은 현장 담당자가 FOM 시스템의 기능과 데이터를 학습 과정 자체로 활용하여 스스로 의사결정 역량을 키우는 방법론이다.
+
+현장 담당자는 실제 자신의 현장 데이터를 기반으로 문제를 정의하고, FOM이 제공하는 KPI와 4M 분석 결과를 직접 해석하며, 도출한 개선안을 실행하고 그 결과를 다시 데이터로 확인한다. 이 사이클의 반복을 통해 데이터 기반 사고가 현장 문화로 정착한다.
+
+FOM-PBL은 별도의 교육 모듈이 아니라 FOM 시스템을 **사용하는 방식 자체가 학습**이 되도록 설계하는 원칙이다.
+
+### 목표 상태
+
+> **현장 담당자가 데이터를 기반으로 스스로 의사결정을 내리는 현장 — 데이터가 곧 의사결정의 언어가 되는 현장**
 
 ---
+
+## 프로젝트 목적
+
+현장에서 생성되는 운영 데이터를 기반으로 FOM 시스템 중심의 데이터 기반 다차원 분석 체계를 구축한다. 핵심은 현장 데이터를 정형화하고, 이를 **4M(Man, Machine, Material, Method)** 과 **Objective Data**를 결합한 확장형 분석 구조로 재구성하여 KPI 중심의 정량 분석이 가능한 체계를 확립하는 데 있다.
+
+- 현장 데이터를 표준화된 **FOM File Set**으로 재구성하여 데이터 정합성과 일관성을 확보한다.
+- 4M과 Objective Data를 결합한 확장 가능한 다차원 분석 구조를 설계한다.
+- 제조현장에서는 Energy 데이터를 Objective Data로 적용하여 **4M1E** 기반 분석 구조를 구성한다.
+- KPI 중심의 분석을 통해 공정·설비·작업자 단위뿐 아니라 다양한 운영 단위의 성과를 정량적으로 진단하고 손실 및 개선 기회를 도출한다.
+- 데이터 전처리(Assist)와 분석(Process)을 분리된 구조로 설계하여 FOM 분석 체계의 확장성과 재사용성을 확보한다.
+- FOM MCP Server를 통해 자연어 기반 FOM 분석 접근 환경을 제공한다.
+
+---
+
+## 4M + Objective Data
+
+FOM 분석의 기본 골격은 4M이다. 모든 운영 현장의 데이터는 아래 4개 관점으로 분류된다.
+
+| 관점 | 제조현장 | 요양원 | 호텔 |
+|------|---------|-------|------|
+| **Man** | 작업자, 담당자 | 간호사, 요양사 | 직원, 담당 파트 |
+| **Machine** | 생산 설비 | 의료기기, 리프트 | 객실 설비 |
+| **Material** | 제품, 원자재 | 환자, 케어 물품 | 객실, 식재료 |
+| **Method** | 공정, 작업 절차 | 케어 프로토콜 | 서비스 절차 |
+
+**공정 계층 (process_hierarchy)**은 4M의 Method 축을 3단계로 세분화한 구조다. QPR에서는 대분류·중분류·소분류 컬럼으로 표현되며, 각 단계의 실제 의미는 프로젝트마다 다르게 정의된다. 예를 들어 어떤 현장에서는 라인·공정·세부공정이고, 다른 현장에서는 업체명·부품명·품명일 수 있다. 이 매핑은 코드가 아닌 프로젝트별 `config.json`에서 정의한다.
+
+**Objective Data**는 4M 구조에 포함되지 않지만 분석 목적에 따라 추가되는 객관적 측정 데이터 축이다. 4M 분석 결과와 교차 분석하여 새로운 인과 구조를 발견하는 데 활용된다.
+
+| 현장 유형 | Objective Data 예시 | 확장 구조 |
+|----------|-------------------|---------|
+| 제조현장 | FEMS 에너지 소비량, 온도·습도 | 4M1E |
+| 요양원 | 환자 상태 점수, 케어 시간, 사고 발생 건수 | 4M + Care Index |
+| 호텔 | 객실 점유율, 고객 만족도, 에너지 사용량 | 4M + Hospitality Index |
+| 물류 | 배송 리드타임, 파손율, 차량 연비 | 4M + Logistics Index |
+| 시설관리 | 공간 가동률, 안전사고 건수, 유지보수 비용 | 4M + Facility Index |
+
+---
+
+## 문서 구조
+
+| 문서 | 역할 |
+|------|------|
+| `README.md` (본 문서) | FOM 철학, 프로젝트 목적, 4M + Objective Data 개념 |
+| `FOM_RULES.md` | 기술 최상위 명세 — FOM File Set, 데이터 흐름, 문서 체계, MCP, 보안 |
+| `QPR_RULES.md` | `manual_qpr.csv` 파일 구조·파싱 규칙 |
+| `ASSIST_RULES.md` | Assist GUI 입력·매핑·출력 규칙 |
+| `CLAUDE.md` | 코드 아키텍처·실행 명령·AI 코딩 지침 |
+
+---
+
+## Vibe Coding 절차
+
+OpenFOMs는 AI(LLM)와 함께 코드를 작성하는 Vibe Coding 방식으로 개발한다. 코드를 작성하거나 수정하기 전에 반드시 아래 절차를 따른다.
+
+### 1단계 — 철학과 목적 이해
+
+`README.md` (본 문서)를 먼저 읽는다. FOM이 무엇을 지향하는지, 4M + Objective Data 구조가 어떤 의미인지를 이해한 상태에서 코드를 작성해야 한다. 구현 방향이 FOM 철학에 부합하는지 판단하는 기준이 된다.
+
+### 2단계 — 기술 규칙 파악
+
+`FOM_RULES.md`를 읽는다. FOM File Set 구조, 데이터 흐름, 프로젝트 공간 구조, Vibe Coding 원칙, MCP Server 명세, 데이터 보안 원칙을 확인한다. 이 문서가 모든 기술 구현의 최상위 기준이다.
+
+### 3단계 — 작업 범위별 세부 규칙 확인
+
+작업 내용에 따라 해당 문서를 추가로 읽는다.
+
+| 작업 범위 | 읽어야 할 문서 |
+|----------|-------------|
+| QPR 파일 구조, 파싱, DB 적재 관련 | `QPR_RULES.md` |
+| Assist GUI, 컬럼 매핑, config.json 생성 관련 | `ASSIST_RULES.md` |
+| 코드 아키텍처, 실행 명령, 모듈 구조 관련 | `CLAUDE.md` |
+| 특정 현장 프로젝트의 매핑 컨텍스트 관련 | `projects/{프로젝트명}/` 내 파일 |
+
+### 4단계 — 구현
+
+규칙을 확인한 후 구현한다. 구현 중 규칙과 충돌이 발생하면 코드를 규칙에 맞게 조정한다. 규칙 자체를 변경해야 할 경우 해당 문서를 먼저 수정하고 구현한다.
+
+### 5단계 — 검증
+
+구현 후 다음 항목을 확인한다.
+
+- 공정 계층(대분류·중분류·소분류)의 의미를 코드에 고정 가정하지 않았는가 — 각 단계의 의미는 프로젝트마다 다르며 `config.json`에서 정의된다
+- 비가동·부적합·불량을 단일값으로 가정하지 않았는가
+- MCP Tool이 원시 행 데이터를 반환하지 않는가
+- 경고(warning)와 오류(error)를 별도 채널로 처리하는가
+- `mapping_rules.json` v1 포맷에 대한 마이그레이션 로직이 유지되는가
