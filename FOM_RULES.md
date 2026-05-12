@@ -121,7 +121,19 @@ projects/
 
 ---
 
-## 6. Vibe Coding 원칙
+## 6. FOM Architecture Constraints
+
+The following constraints must be respected in all design and implementation decisions. These guard against common misinterpretations of FOM.
+
+- **FOM is the core philosophy.** AI, MCP, and external interfaces are secondary. They serve FOM analysis — FOM does not serve them.
+- **QPR is a standardized file structure, not an analysis engine.** QPR defines how field data is recorded. Analysis logic belongs in the Process subsystem.
+- **FOM File Set consists of multiple files, not only QPR.** `manual_qpr.csv` is the central file, but `manual_downtime.csv`, `manual_reject.csv`, `manual_nonconformity.csv`, `manual_limit.csv`, and `manual_cost.csv` are all required parts of the set.
+- **Objective Data is an extensible dimension (e.g., Energy), not Plan/Result.** It is an independent measurement axis added alongside 4M — not a comparison between planned and actual values.
+- **Do not redesign FOM into an AI-centric system.** LLM and MCP are interfaces for accessing FOM analysis results. The 4M-based analytical structure must remain the foundation.
+
+---
+
+## 7. Vibe Coding 원칙
 
 FOM-AI 환경에서 코드를 생성하거나 수정할 때 따르는 원칙이다.
 
@@ -133,15 +145,15 @@ FOM-AI 환경에서 코드를 생성하거나 수정할 때 따르는 원칙이�
 
 ---
 
-## 7. FOM MCP Server
+## 8. FOM MCP Server
 
-### 7.1 설계 원칙
+### 8.1 설계 원칙
 
 - **단일 서버**: 모든 프로젝트를 하나의 MCP 서버 인스턴스로 서비스한다. 프로젝트 구분은 Tool 파라미터(`project`)로 처리한다.
 - **LLM 독립**: 특정 LLM 클라이언트에 종속되지 않는 표준 MCP 구조로 구현한다. 초기에는 Claude Desktop을 우선 대상으로 한다.
 - **얇은 인터페이스**: 비즈니스 로직(KPI 계산, 분석)은 Process 서브시스템이 담당한다. MCP 서버는 Process 함수를 호출하고 결과를 LLM에 전달하는 역할만 한다.
 
-### 7.2 제공 항목
+### 8.2 제공 항목
 
 #### Resources (FOM 도메인 지식)
 
@@ -170,14 +182,14 @@ FOM-AI 환경에서 코드를 생성하거나 수정할 때 따르는 원칙이�
 | `analyze_loss_structure` | 4M 관점의 손실 구조 분석 템플릿 |
 | `daily_production_review` | 일일 생산 현황 FOM 진단 템플릿 |
 
-### 7.3 구현 스택
+### 8.3 구현 스택
 
 - **언어**: Python (현 프로젝트와 동일)
 - **MCP SDK**: `mcp` 패키지 (`pip install mcp`)
 - **진입점**: `mcp_server/main.py`
 - **환경변수**: `FOM_ROOT` — OpenFOMs 루트 경로
 
-### 7.4 Process 서브시스템과의 인터페이스
+### 8.4 Process 서브시스템과의 인터페이스
 
 MCP Tools는 Process 서브시스템의 함수를 직접 import하여 호출한다. HTTP나 별도 프로세스 통신 없이 동일 Python 환경에서 실행한다.
 
@@ -191,11 +203,11 @@ mcp_server/
 
 ---
 
-## 8. 데이터 보안 원칙
+## 9. 데이터 보안 원칙
 
 OpenFOMs는 "데이터는 고객 로컬에, AI 두뇌만 외부에서 빌린다"는 원칙으로 현장 데이터 유출 우려를 구조적으로 해소한다.
 
-### 8.1 데이터 경계 정의
+### 9.1 데이터 경계 정의
 
 | 구분 | 위치 | 외부 전송 여부 |
 |------|------|--------------|
@@ -218,7 +230,7 @@ MCP Tool은 원시 데이터를 반환하지 않는다. Process 서브시스템�
 [{"일자": "2025-01-03", "작업자": "홍길동", "제품": "D280", ...}, ...]
 ```
 
-### 8.3 식별자 마스킹 (선택 옵션)
+### 9.3 식별자 마스킹 (선택 옵션)
 
 프로젝트 설정에서 식별자 마스킹을 활성화하면 Tool 결과의 고유 식별자가 익명화된다. 원본↔마스킹 매핑 테이블은 로컬 DB에만 저장된다.
 
@@ -226,7 +238,7 @@ MCP Tool은 원시 데이터를 반환하지 않는다. Process 서브시스템�
 { "security": { "mask_identifiers": true } }
 ```
 
-### 8.4 LLM 백엔드 선택
+### 9.4 LLM 백엔드 선택
 
 MCP 서버는 LLM 백엔드에 독립적으로 설계된다. Tool 인터페이스는 동일하게 유지되며 백엔드만 교체할 수 있다.
 
@@ -236,7 +248,7 @@ MCP 서버는 LLM 백엔드에 독립적으로 설계된다. Tool 인터페이�
 | ChatGPT API | 집계 결과만 | 최고 | 종량제 |
 | Ollama (로컬 모델) | 없음 | 중간 | 인프라 비용 |
 
-### 8.5 API 데이터 처리 정책
+### 9.5 API 데이터 처리 정책
 
 Claude API(Anthropic) 및 ChatGPT API(OpenAI) 모두 API 입력·출력 데이터를 모델 학습에 사용하지 않는다고 명시하고 있다. 보다 강한 계약 보장이 필요한 경우 각 제공사의 기업용 Zero Data Retention 옵션을 활용한다.
 
@@ -244,13 +256,13 @@ Claude API(Anthropic) 및 ChatGPT API(OpenAI) 모두 API 입력·출력 데이�
 
 ---
 
-## 9. FOM KPI 코드 체계
+## 10. FOM KPI 코드 체계
 
-### 9.1 유기적 연결 원칙
+### 10.1 유기적 연결 원칙
 
 FOM Solution의 핵심 특징은 **관리번호(FOM Code)에 따라 모든 분석 컴포넌트가 유기적으로 연결**된다는 데 있다. FOM Code는 단순한 분류 번호가 아니라, 생산량·비가동·불량·부적합 영역의 분석 컴포넌트를 동일한 체계로 연결하는 키(key)다. 이를 통해 낭비요인 및 생산성 저해요인에 대한 분석·변화관리·추적관리가 가능해진다.
 
-### 9.2 FOM Code 구조
+### 10.2 FOM Code 구조
 
 FOM Code는 `#1000 ~ #4500` 범위에서 4개 영역으로 관리된다. 각 영역은 4M 관점(Total / Product / Machine / Worker / Factor)으로 세분화된다.
 
@@ -261,7 +273,7 @@ FOM Code는 `#1000 ~ #4500` 범위에서 4개 영역으로 관리된다. 각 영
 | 불량 (Defect) | 3000 | 3100 | 3200 | 3300 | 3400 | 3500 |
 | 부적합 (Nonconformity) | 4000 | 4100 | 4200 | 4300 | 4400 | 4500 |
 
-### 9.3 분석 단위
+### 10.3 분석 단위
 
 FOM 분석은 시간 단위와 공간 단위를 조합하여 수행한다.
 
@@ -283,7 +295,7 @@ FOM 분석은 시간 단위와 공간 단위를 조합하여 수행한다.
 | 2단계 | Production line | 생산 라인 (공정 계층 Level1~2) |
 | 3단계 | Production detail line | 생산 세부 라인 (공정 계층 Level3) |
 
-### 9.4 FOM Code 활용 방법
+### 10.4 FOM Code 활용 방법
 
 | 방법 | 설명 |
 |------|------|
