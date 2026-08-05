@@ -1,8 +1,8 @@
 # QPR_RULES
 
-본 문서는 FOM File Set을 구성하는 6개 파일 중 **`manual_qpr.csv` 단일 파일**의 명세서이다. FOM File Set 전체 구성과 나머지 파일(비가동·불량·부적합·기준값·비용)의 역할은 `FOM_RULES.md` 3절을 참조한다.
+본 문서는 FOM File Set을 구성하는 6개 파일 중 **`manual qpr.csv` 단일 파일**의 명세서이다. FOM File Set 전체 구성과 나머지 파일(비가동·불량·부적합·기준값·비용)의 역할은 `FOM_RULES.md` 3절을 참조한다.
 
-**`manual_qpr.csv`** 는 FOM File Set의 핵심 생산관리 파일로, QPR(Quick Plan Result) 구조에 따라 현장 운영의 계획 대비 실적을 4M 기반으로 표준화된 행 구조로 기록한다. 본 문서는 제조현장 기준으로 이 파일의 컬럼 구조, Key 정의, Main Row/Detail Row 행 해석, 다중 요인 처리, 파싱 및 DB 적재 규칙을 정의한다.
+**`manual qpr.csv`** 는 FOM File Set의 핵심 생산관리 파일로, QPR(Quick Plan Result) 구조에 따라 현장 운영의 계획 대비 실적을 4M 기반으로 표준화된 행 구조로 기록한다. 본 문서는 제조현장 기준으로 이 파일의 컬럼 구조, Key 정의, Main Row/Detail Row 행 해석, 다중 요인 처리, 파싱 및 DB 적재 규칙을 정의한다.
 
 > **문서 범위**: `QPR_RULES.md`는 `manual_qpr.csv` 파일 하나의 구조와 파싱 규칙만 다룬다.  
 > FOM File Set 전체 맥락은 `FOM_RULES.md`, Assist 변환 규칙은 `ASSIST_RULES.md`를 참조한다.

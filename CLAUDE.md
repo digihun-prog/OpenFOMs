@@ -27,6 +27,10 @@ Before implementing anything, read in this order based on the task:
 |----------|-------------|
 | `FOM_RULES.md` | Any task — top-level technical spec (File Set, data flow, MCP, security) |
 | `QPR_RULES.md` | QPR file structure, parsing logic, DB loading |
+| `COST_RULES.md` | Cost file structure, composite key linkage to QPR |
+| `DOWNTIME_RULES.md` | `manual downtime.csv` structure, 요인명 key linkage to QPR `비가동` |
+| `REJECT_RULES.md` | `manual reject.csv` structure, 요인명 key linkage to QPR `불량` |
+| `ABNORMAL_RULES.md` | `manual abnormal.csv` structure, 요인명 key linkage to QPR `부적합` |
 | `ASSIST_RULES.md` | Assist GUI, column mapping rules, config.json generation |
 | `CLAUDE.md` (this file) | Code architecture, module locations |
 
