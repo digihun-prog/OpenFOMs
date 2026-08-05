@@ -31,6 +31,7 @@ Before implementing anything, read in this order based on the task:
 | `DOWNTIME_RULES.md` | `manual downtime.csv` structure, 요인명 key linkage to QPR `비가동` |
 | `REJECT_RULES.md` | `manual reject.csv` structure, 요인명 key linkage to QPR `불량` |
 | `ABNORMAL_RULES.md` | `manual abnormal.csv` structure, 요인명 key linkage to QPR `부적합` |
+| `LIMIT_RULES.md` | `manual limit.csv` structure, OPI threshold definitions, composite-key linkage to QPR |
 | `ASSIST_RULES.md` | Assist GUI, column mapping rules, config.json generation |
 | `CLAUDE.md` (this file) | Code architecture, module locations |
 
