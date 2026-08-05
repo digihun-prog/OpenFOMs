@@ -8,7 +8,7 @@
 
 ## FOM 철학
 
-FOM(Factory Operation Management)은 단순한 생산관리 시스템이 아니라, 현장의 데이터를 중심으로 모든 의사결정을 수행하는 **사고 체계(Thinking Framework)**다.
+FOM(Factory Operation Management)은 단순한 생산관리 시스템이 아니라, 현장의 데이터를 중심으로 모든 의사결정을 수행하는 **사고 체계(Thinking Framework)** 다.
 
 핵심은 **"현장을 수치로 해석하고, 개선을 구조화한다"** 는 데 있다.
 
